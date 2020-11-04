@@ -16,6 +16,11 @@ inquirer.prompt([
         type: "input",
         message: "Enter instructions for installation. ",
         name: "installInstructions"
+    },
+    {
+        type: "input",
+        message: "Enter usage information. ",
+        name: "usageInformation"
     }
 ]).then(response => {
     
@@ -36,6 +41,7 @@ function generateReadMe(data){
            `[Contributing](#contributing)\n\n` +
            `[Tests](#tests)\n\n` +
            `[Questions](#questions)\n\n` + 
-           `## Installation\n${data.installInstructions}\n\n`
+           `## Installation\n${data.installInstructions}\n\n` +
+           `## Usage\n${data.usageInformation}\n\n`
 }
 
