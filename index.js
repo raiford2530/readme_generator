@@ -11,6 +11,11 @@ inquirer.prompt([
         type: "input",
         message: "Enter a description for your project. ",
         name: "projectDescription"
+    },
+    {
+        type: "input",
+        message: "Enter instructions for installation. ",
+        name: "installInstructions"
     }
 ]).then(response => {
     
@@ -23,6 +28,14 @@ inquirer.prompt([
 
 function generateReadMe(data){
     return `# ${data.projectTitle}\n\n` +
-           `## Description\n${data.projectDescription}\n\n`;
+           `## Description\n${data.projectDescription}\n\n` + 
+           `## Table of Contents\n` + 
+           `[Installation](#installation)\n\n` +
+           `[Usage](#usage)\n\n` + 
+           `[License](#license)\n\n` +
+           `[Contributing](#contributing)\n\n` +
+           `[Tests](#tests)\n\n` +
+           `[Questions](#questions)\n\n` + 
+           `## Installation\n${data.installInstructions}\n\n`
 }
 
