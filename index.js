@@ -6,42 +6,42 @@ inquirer
     {
       type: "input",
       message: "Enter the title of your project. ",
-      name: "projectTitle"
+      name: "projectTitle",
     },
     {
       type: "input",
       message: "Enter a description for your project. ",
-      name: "projectDescription"
+      name: "projectDescription",
     },
     {
       type: "input",
       message: "Enter instructions for installation. ",
-      name: "installInstructions"
+      name: "installInstructions",
     },
     {
       type: "input",
       message: "Enter usage information. ",
-      name: "usageInformation"
+      name: "usageInformation",
     },
     {
       type: "input",
       message: "Enter test instructions. ",
-      name: "testInstructions"
+      name: "testInstructions",
     },
     {
-        type: "input",
-        message: "Enter contribution guidelines. ",
-        name: "contributionGuidelines"
+      type: "input",
+      message: "Enter contribution guidelines. ",
+      name: "contributionGuidelines",
     },
     {
-        type: "input",
-        message: "Enter your GitHub username. ",
-        name: "githubUsername"
+      type: "input",
+      message: "Enter your GitHub username. ",
+      name: "githubUsername",
     },
     {
-        type: "input",
-        message: "Enter youre email. ",
-        name: "email"
+      type: "input",
+      message: "Enter youre email. ",
+      name: "email",
     },
     {
       type: "list",
@@ -94,25 +94,63 @@ inquirer
 
 function generateReadMe(data) {
   const license = getBadge(data.license);
+  let tableOfContents = getTableOfContents(data);
+  let readmeString = "";
 
-  return (
-    `# ${data.projectTitle}        ![License](${license}\n\n` +
-    `## Description  \n${data.projectDescription}\n\n` +
-    `## Table of Contents  \n` +
-    `[Installation](#installation)  \n` +
-    `[Usage](#usage)  \n` +
-    `[Tests](#tests)  \n` +
-    `[Contributing](#contributing)  \n` +
-    `[Questions](#questions)  \n` +
-    `[License](#license)  \n\n` +
-    `## Installation\n${data.installInstructions}\n\n` +
-    `## Usage  \n${data.usageInformation}\n\n` +
-    `## Tests  \n${data.testInstructions}\n\n` +
-    `## Contributing  \n${data.contributionGuidelines}\n\n` +
-    `## Question  s\nVisit my [GitHub Profile](https://www.github.com/${data.githubUsername})  \n` +
-    `For additional questions, contact me by email at ${data.email}.\n\n` +
-    `## License  \nThis project is licensed under ${data.license}\n\n`
-  );
+  if (data.projectTitle) {
+    readmeString += `# ${data.projectTitle}        ![License](${license}\n\n`;
+  }
+
+  if (data.projectDescription) {
+    readmeString += `## Description  \n${data.projectDescription}\n\n`;
+  }
+
+  if (tableOfContents.length > 0) {
+    readmeString += `## Table of Contents  \n`;
+
+    for (let i = 0; i < tableOfContents.length; i++) {
+      let item = tableOfContents[i];
+      readmeString += `[${item}](#${item})  \n`;
+    }
+
+    readmeString += "\n";
+  }
+
+  if (data.installInstructions) {
+    readmeString += `## Installation\n${data.installInstructions}\n\n`;
+  }
+
+  if (data.usageInformation) {
+    readmeString += `## Usage  \n${data.usageInformation}\n\n`;
+  }
+
+  if (data.testInstructions) {
+    readmeString += `## Tests  \n${data.testInstructions}\n\n`;
+  }
+
+  if (data.contributionGuidelines) {
+    readmeString += `## Contributing  \n${data.contributionGuidelines}\n\n`;
+  }
+
+  if (data.githubUsername || data.email) {
+    readmeString += `## Questions \n`;
+
+    if (data.githubUsername) {
+      readmeString += `Visit my [GitHub Profile](https://www.github.com/${data.githubUsername})  \n`;
+    }
+
+    if (data.email) {
+      readmeString += `For additional questions, contact me by email at ${data.email}.  \n`;
+    }
+
+    readmeString += "\n";
+  }
+
+  if (data.license) {
+    readmeString += `## License  \nThis project is licensed under ${data.license}\n\n`;
+  }
+
+  return readmeString;
 }
 
 function getBadge(license) {
@@ -120,30 +158,60 @@ function getBadge(license) {
 
   switch (license) {
     case "GNU AGPLv3":
-      badge = {name: "GNU+AGPLv3", color: "orange"};
+      badge = { name: "GNU+AGPLv3", color: "orange" };
       break;
     case "GNU GPLv3":
-      badge = {name: "GNU+GPLv3", color: "red"};
+      badge = { name: "GNU+GPLv3", color: "red" };
       break;
     case "GNU LGPLv3":
-      badge = {name: "GNU+LGPLv3", color: "blue"};;
+      badge = { name: "GNU+LGPLv3", color: "blue" };
       break;
     case "Mozilla Public License 2.0":
-      badge = {name: "Mozilla+2.0", color: "yellow"};;
+      badge = { name: "Mozilla+2.0", color: "yellow" };
       break;
     case "Apache License 2.0":
-      badge = {name: "Apache+2.0", color: "green"};;
+      badge = { name: "Apache+2.0", color: "green" };
       break;
     case "MIT License":
-      badge = {name: "MIT", color: "brightgreen"};;
+      badge = { name: "MIT", color: "brightgreen" };
       break;
     case "Boost Software License 1.0":
-      badge = {name: "Boost+Software+1.0", color: "yellowgreen"};;
+      badge = { name: "Boost+Software+1.0", color: "yellowgreen" };
       break;
     case "The Unlicense":
-      badge = {name: "The+Unlicense", color: "blueviolet"};;
+      badge = { name: "The+Unlicense", color: "blueviolet" };
       break;
   }
 
   return `https://img.shields.io/static/v1?label=license&message=${badge.name}&color=${badge.color})`;
+}
+
+function getTableOfContents(data) {
+  let tableOfContents = [];
+
+  if (data.installInstructions) {
+    tableOfContents.push("Installation");
+  }
+
+  if (data.usageInformation) {
+    tableOfContents.push("Usage");
+  }
+
+  if (data.testInstructions) {
+    tableOfContents.push("Tests");
+  }
+
+  if (data.contributionGuidelines) {
+    tableOfContents.push("Contributing");
+  }
+
+  if (data.githubUsername || data.email) {
+    tableOfContents.push("Questions");
+  }
+
+  if (data.license) {
+    tableOfContents.push("License");
+  }
+
+  return tableOfContents;
 }
