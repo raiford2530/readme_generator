@@ -6,33 +6,43 @@ inquirer
     {
       type: "input",
       message: "Enter the title of your project. ",
-      name: "projectTitle",
+      name: "projectTitle"
     },
     {
       type: "input",
       message: "Enter a description for your project. ",
-      name: "projectDescription",
+      name: "projectDescription"
     },
     {
       type: "input",
       message: "Enter instructions for installation. ",
-      name: "installInstructions",
+      name: "installInstructions"
     },
     {
       type: "input",
       message: "Enter usage information. ",
-      name: "usageInformation",
+      name: "usageInformation"
     },
     {
       type: "input",
       message: "Enter test instructions. ",
-      name: "testInstructions",
+      name: "testInstructions"
     },
     {
         type: "input",
         message: "Enter contribution guidelines. ",
-        name: "contributionGuidelines",
-      },
+        name: "contributionGuidelines"
+    },
+    {
+        type: "input",
+        message: "Enter your GitHub username. ",
+        name: "githubUsername"
+    },
+    {
+        type: "input",
+        message: "Enter youre email. ",
+        name: "email"
+    },
     {
       type: "list",
       message: "Select a license. ",
@@ -87,19 +97,21 @@ function generateReadMe(data) {
 
   return (
     `# ${data.projectTitle}        ![License](${license}\n\n` +
-    `## Description\n${data.projectDescription}\n\n` +
-    `## Table of Contents\n` +
-    `[Installation](#installation)\n\n` +
-    `[Usage](#usage)\n\n` +
-    `[Tests](#tests)\n\n` +
-    `[Contributing](#contributing)\n\n` +
-    `[Questions](#questions)\n\n` +
-    `[License](#license)\n\n` +
+    `## Description  \n${data.projectDescription}\n\n` +
+    `## Table of Contents  \n` +
+    `[Installation](#installation)  \n` +
+    `[Usage](#usage)  \n` +
+    `[Tests](#tests)  \n` +
+    `[Contributing](#contributing)  \n` +
+    `[Questions](#questions)  \n` +
+    `[License](#license)  \n\n` +
     `## Installation\n${data.installInstructions}\n\n` +
-    `## Usage\n${data.usageInformation}\n\n` +
-    `## Tests\n${data.testInstructions}\n\n` +
-    `## Contributing\n${data.contributionGuidelines}\n\n` +
-    `## License\nThis project is licensed under ${data.license}\n\n`
+    `## Usage  \n${data.usageInformation}\n\n` +
+    `## Tests  \n${data.testInstructions}\n\n` +
+    `## Contributing  \n${data.contributionGuidelines}\n\n` +
+    `## Question  s\nVisit my [GitHub Profile](https://www.github.com/${data.githubUsername})  \n` +
+    `For additional questions, contact me by email at ${data.email}.\n\n` +
+    `## License  \nThis project is licensed under ${data.license}\n\n`
   );
 }
 
