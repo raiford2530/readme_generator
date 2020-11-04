@@ -4,8 +4,13 @@ const fs = require('fs');
 inquirer.prompt([
     {
         type: "input",
-        message: "Enter the name of your application repository. ",
-        name: "repoName"
+        message: "Enter the title of your project. ",
+        name: "projectTitle"
+    },
+    {
+        type: "input",
+        message: "Enter a description for your project. ",
+        name: "projectDescription"
     }
 ]).then(response => {
     
@@ -17,6 +22,7 @@ inquirer.prompt([
 })
 
 function generateReadMe(data){
-    return `# ${data.repoName}\n`;
+    return `# ${data.projectTitle}\n\n` +
+           `## Description\n${data.projectDescription}\n\n`;
 }
 
