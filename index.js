@@ -85,6 +85,10 @@ inquirer
     },
   ])
   .then((response) => {
+    if(!(response.projectTitle && response.projectDescription)){
+        throw new Error("Project title or description is missing.")
+    }
+    
     fs.writeFile("README.md", generateReadMe(response), "utf8", (err) => {
       if (err) throw err;
 
