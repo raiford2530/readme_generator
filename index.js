@@ -25,8 +25,8 @@ inquirer
     },
     {
       type: "input",
-      message: "Enter usage information. ",
-      name: "usageInformation",
+      message: "Enter test instructions. ",
+      name: "testInstructions",
     },
     {
       type: "list",
@@ -92,6 +92,7 @@ function generateReadMe(data) {
     `[License](#license)\n\n` +
     `## Installation\n${data.installInstructions}\n\n` +
     `## Usage\n${data.usageInformation}\n\n` +
+    `## Tests\n${data.testInstructions}\n\n` +
     `## License\nThis project is licensed under ${data.license}\n\n`
   );
 }
