@@ -29,6 +29,11 @@ inquirer
       name: "testInstructions",
     },
     {
+        type: "input",
+        message: "Enter contribution guidelines. ",
+        name: "contributionGuidelines",
+      },
+    {
       type: "list",
       message: "Select a license. ",
       name: "license",
@@ -93,6 +98,7 @@ function generateReadMe(data) {
     `## Installation\n${data.installInstructions}\n\n` +
     `## Usage\n${data.usageInformation}\n\n` +
     `## Tests\n${data.testInstructions}\n\n` +
+    `## Contributing\n${data.contributionGuidelines}\n\n` +
     `## License\nThis project is licensed under ${data.license}\n\n`
   );
 }
