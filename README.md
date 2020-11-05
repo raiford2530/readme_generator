@@ -3,6 +3,8 @@
 ## Description  
 ReadMe Generator is a CLI  application for users that need to quickly create a professional README so that they can primarily focus on development. This application allows users to input information they want included on the README including title, description, installation instructions, usage information, test instructions, contribution guidelines, license, and question section for the user's github profile and email. Once the user inputs their information the application then generates a markdown file. The application was developed using Node.js
 
+![Node Generator Screenshot](./node_generator.png)
+
 ## Table of Contents  
 [Usage](#Usage)  
 [Questions](#Questions)  
