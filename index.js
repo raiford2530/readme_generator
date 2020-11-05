@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
+//Prompts for user to input README information
 inquirer
   .prompt([
     {
@@ -85,10 +86,13 @@ inquirer
     },
   ])
   .then((response) => {
+
+    //Throws an error if the user doesn't input the minimal information for readme: title and description
     if(!(response.projectTitle && response.projectDescription)){
         throw new Error("Project title or description is missing.")
     }
     
+    //Write readme file
     fs.writeFile("README.md", generateReadMe(response), "utf8", (err) => {
       if (err) throw err;
 
@@ -96,6 +100,7 @@ inquirer
     });
   });
 
+//Generates markdown for readme file
 function generateReadMe(data) {
   const license = getBadge(data.license);
   let tableOfContents = getTableOfContents(data);
@@ -157,6 +162,7 @@ function generateReadMe(data) {
   return readmeString;
 }
 
+//Generate badge based on selected license
 function getBadge(license) {
   let badge;
 
@@ -190,6 +196,7 @@ function getBadge(license) {
   return `https://img.shields.io/static/v1?label=license&message=${badge.name}&color=${badge.color})`;
 }
 
+//Creates table of contents based on inputs supplied
 function getTableOfContents(data) {
   let tableOfContents = [];
 
